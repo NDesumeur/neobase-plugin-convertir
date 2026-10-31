@@ -1,0 +1,19 @@
+{
+  "id": "neobase.convertir",
+  "name": "Convertir",
+  "version": "1.0.0",
+  "author": "NDesumeur",
+  "description": "Dépose un fichier : il devient un nouveau fichier dans un autre format, à côté de l'original.",
+  "icon": "icon.png",
+  "entry": "index.js",
+  "view": "convertir",
+  "neobase": ">=4.0.0",
+  "type": "app",
+  "category": "Outils",
+  "mobile": false,
+  "system": false,
+  "dependencies": {},
+  "permissions": [
+    "full"
+  ]
+}
