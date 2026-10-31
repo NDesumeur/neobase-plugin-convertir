@@ -80,5 +80,6 @@ if (window.neo) {
   drop.ondrop = e => { e.preventDefault(); $('cvDrop').classList.remove('over'); cvAdd([...e.dataTransfer.files].map(f => neo.pathOf(f))); };
 }  // (non indenté : les textes sur plusieurs lignes restent exactement les tiens)
   // ---- fin ----
+  window.cvOpen = cvOpen; window.cvAdd = cvAdd;  // ce que NeoBase (Fichiers, Visionneuse, recherche dans la page) peut demander à ce plugin
   ctx.onOpen(() => { cvOpen(); });
 }
