@@ -1,7 +1,7 @@
 {
   "id": "neobase.convertir",
   "name": "Convertir",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "NDesumeur",
   "description": "Dépose un fichier : il devient un nouveau fichier dans un autre format, à côté de l'original.",
   "icon": "icon.png",
