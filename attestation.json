@@ -1,0 +1,9 @@
+{
+  "pluginId": "neobase.convertir",
+  "repo": "NDesumeur/neobase-plugin-convertir",
+  "version": "1.0.2",
+  "sha256": "8c9b7c9a41a1564964d843f156e7d467a3aa271e158e23ab9f3e2f1b5c586ae3",
+  "approvedAt": "2026-11-01T00:16:26.457Z",
+  "neobase": ">=4.0.0",
+  "signature": "doAIJ0jsB6vgLdwCsqSmdMkF+HUtU5awGcObvODiB1cU9d7058fyIRhINEZiRNoaPSER3MzaWPVAsNJ3zz36BA=="
+}
