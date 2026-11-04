@@ -1,6 +1,6 @@
 // Convertir : ton appli d'origine (HTML et code inchangés), livrée en plugin.
-// Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
-// Elle tourne dans le bac à sable de NeoBase, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
+// Ses données sont dans le dossier du plugin, que NeoDex sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoDex.
+// Elle tourne dans le bac à sable de NeoDex, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
 const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\"label\">Convertir</span><span class=\"hint\" id=\"cvCaps\"></span></div>\n      <div id=\"cvDrop\" class=\"px\"><b>Glisse des fichiers ici</b><span class=\"hint\">ou</span><button class=\"btn main px\" id=\"cvPick\">Choisir des fichiers…</button>\n        <div class=\"hint\">Images, sons, vidéos, tableaux (Excel, ODS, CSV, JSON) et documents (Word, Markdown, HTML, texte → PDF…). Le fichier converti est créé à côté de l'original, qui n'est jamais modifié.</div></div>\n      <div class=\"sysCard px\"><span class=\"label\">Réglages</span>\n        <div class=\"bdPlan\">Taille <select class=\"f\" id=\"cvSize\"><option value=\"full\">d'origine</option><option value=\"75\">75 %</option><option value=\"50\">50 %</option><option value=\"25\">25 %</option><option value=\"1920\">1920 px max</option><option value=\"1280\">1280 px max</option><option value=\"720\">720 px max</option><option value=\"512\">512 px max</option><option value=\"256\">256 px (icône)</option></select>\n          Qualité <select class=\"f\" id=\"cvQuality\"><option value=\"high\">haute</option><option value=\"normal\" selected>normale</option><option value=\"small\">fichier léger</option></select>\n          <label class=\"check\"><input type=\"checkbox\" id=\"cvSquare\"> Recadrer en carré (icônes de vignettes)</label></div>\n        <div class=\"hint\">La taille, la qualité et le recadrage s'appliquent aux images et aux vidéos.</div></div>\n      <div id=\"cvList\"></div>\n      <div class=\"row\"><button class=\"btn main px\" id=\"cvGo\">Tout convertir</button><button class=\"btn ghost px\" id=\"cvClear\">Vider la liste</button></div>\n    </div>";
 /*CSS-MOVED*/ const CSS = `#cvDrop{--fill:rgba(255,255,255,.02);--c:var(--line2);display:flex;flex-direction:column;align-items:center;gap:12px;padding:34px 20px;text-align:center}
 #cvDrop b{font:12px var(--title);color:#fff;letter-spacing:1px}
@@ -17,10 +17,10 @@ const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\
 .bdPlan{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:16px;color:var(--lilac)}
 .bdPlan .f{width:110px;font-size:15px;padding:7px 10px}
 .bdPlan select.f{width:160px}
-`;  // le style de ce plugin (il utilise les variables du thème de NeoBase)
+`;  // le style de ce plugin (il utilise les variables du thème de NeoDex)
 export default async function (ctx) {
   const view = ctx.view;
-  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoBase pour s'ouvrir."; return; }
+  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoDex pour s'ouvrir."; return; }
   const host = ctx.host, { el, toast, sfx, ask, newTab, pixIcon, PIX, WX } = host;
   const folder = ctx.folder, legacy = ctx.legacy || {};
   ctx.host.addStyle(CSS);
