@@ -1,6 +1,6 @@
 // Convertir : ton appli d'origine (HTML et code inchangés), livrée en plugin.
 // Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
-// Elle demande l'accès complet pour utiliser les outils d'interface de NeoBase. NeoBase ne l'ouvre que si elle est signée.
+// Elle tourne dans le bac à sable de NeoBase, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
 const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\"label\">Convertir</span><span class=\"hint\" id=\"cvCaps\"></span></div>\n      <div id=\"cvDrop\" class=\"px\"><b>Glisse des fichiers ici</b><span class=\"hint\">ou</span><button class=\"btn main px\" id=\"cvPick\">Choisir des fichiers…</button>\n        <div class=\"hint\">Images, sons, vidéos, tableaux (Excel, ODS, CSV, JSON) et documents (Word, Markdown, HTML, texte → PDF…). Le fichier converti est créé à côté de l'original, qui n'est jamais modifié.</div></div>\n      <div class=\"sysCard px\"><span class=\"label\">Réglages</span>\n        <div class=\"bdPlan\">Taille <select class=\"f\" id=\"cvSize\"><option value=\"full\">d'origine</option><option value=\"75\">75 %</option><option value=\"50\">50 %</option><option value=\"25\">25 %</option><option value=\"1920\">1920 px max</option><option value=\"1280\">1280 px max</option><option value=\"720\">720 px max</option><option value=\"512\">512 px max</option><option value=\"256\">256 px (icône)</option></select>\n          Qualité <select class=\"f\" id=\"cvQuality\"><option value=\"high\">haute</option><option value=\"normal\" selected>normale</option><option value=\"small\">fichier léger</option></select>\n          <label class=\"check\"><input type=\"checkbox\" id=\"cvSquare\"> Recadrer en carré (icônes de vignettes)</label></div>\n        <div class=\"hint\">La taille, la qualité et le recadrage s'appliquent aux images et aux vidéos.</div></div>\n      <div id=\"cvList\"></div>\n      <div class=\"row\"><button class=\"btn main px\" id=\"cvGo\">Tout convertir</button><button class=\"btn ghost px\" id=\"cvClear\">Vider la liste</button></div>\n    </div>";
 /*CSS-MOVED*/ const CSS = `#cvDrop{--fill:rgba(255,255,255,.02);--c:var(--line2);display:flex;flex-direction:column;align-items:center;gap:12px;padding:34px 20px;text-align:center}
 #cvDrop b{font:12px var(--title);color:#fff;letter-spacing:1px}
@@ -94,9 +94,9 @@ if (window.neo) {
   const drop = $('convApp');
   drop.ondragover = e => { e.preventDefault(); $('cvDrop').classList.add('over'); };
   drop.ondragleave = e => { if (!drop.contains(e.relatedTarget)) $('cvDrop').classList.remove('over'); };
-  drop.ondrop = e => { e.preventDefault(); $('cvDrop').classList.remove('over'); cvAdd([...e.dataTransfer.files].map(f => neo.pathOf(f))); };
+  drop.ondrop = e => { e.preventDefault(); $('cvDrop').classList.remove('over'); Promise.all([...e.dataTransfer.files].map(f => neo.pathOf(f))).then(cvAdd); };
 }  // (non indenté : les textes sur plusieurs lignes restent exactement les tiens)
   // ---- fin ----
-  window.cvOpen = cvOpen; window.cvAdd = cvAdd;  // ce que NeoBase (Fichiers, Visionneuse, recherche dans la page) peut demander à ce plugin
+  ctx.onFiles(files => cvOpen().then(() => cvAdd(files)));  // les fichiers envoyés par Fichiers
   ctx.onOpen(() => { cvOpen(); });
 }
