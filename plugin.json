@@ -10,6 +10,8 @@
   "neobase": ">=4.0.0",
   "type": "app",
   "category": "Outils",
+  "syncMode": "aucune",
+  "syncInfo": "Rien n'est synchronisé : les fichiers convertis restent sur le PC.",
   "mobile": false,
   "system": true,
   "dependencies": {},
